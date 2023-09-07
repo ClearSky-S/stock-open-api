@@ -1,16 +1,21 @@
-# This is a sample Python script.
+from ebest_util import *
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def cycle(username, iteration=50):
+    init_util(username)
 
+    start = get_account()
+    price()
+    for i in range(iteration):
+        order()
+        time.sleep(0.3)
+        order(is_buy=False)
+        time.sleep(0.3)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+    end = get_account()
+    print(f'차액: {format(end - start, ",")}')
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    cycle("장준혁", 50)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/

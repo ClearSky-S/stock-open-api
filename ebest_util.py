@@ -1,6 +1,7 @@
 import requests
 import urllib3
 import json
+import time
 
 urllib3.disable_warnings()
 BASE_URL = "https://openapi.ebestsec.co.kr:8080"
@@ -19,7 +20,7 @@ def init_util(username="장준혁-모의투자"):
     if users == None:
         with open('users.txt', 'rt', encoding='UTF8') as file:
             users = json.loads(file.read())
-    print(f'로그인 시도: {username}')
+    print(f'-------- 로그인 시도: {username} --------')
     APP_KEY = users[username]["APP_KEY"]
     APP_SECRET = users[username]["APP_SECRET"]
     header = {"content-type": "application/x-www-form-urlencoded"}
@@ -59,10 +60,13 @@ def get_account():
             }
     }
     request = requests.post(URL, headers=header, data=json.dumps(body))
+    print("---잔고---")
+    print(request.json())
     print(f"""계좌 잔고: {format(request.json()["t0424OutBlock"]["sunamt"], ',')}""")
+    return request.json()["t0424OutBlock"]["sunamt"]
 
 
-def order(RecCnt=1):
+def order(is_buy=True):
     if (ACCESS_TOKEN == None):
         print("로그인 실패")
         exit()
@@ -77,30 +81,14 @@ def order(RecCnt=1):
     }
     body = {
         "CSPAT00601InBlock1": {
-            "RecCnt": 1,
-            "IsuNo": "A005930",
-            "OrdQty": 2,
-            "OrdPrc": 50000.0,
-            "BnsTpCode": "2",
+            "IsuNo": "A459580",
+            "OrdQty": 1,
+            # "OrdPrc": 1010470.0,
+            "BnsTpCode": "2" if is_buy else "1",
             "OrdprcPtnCode": "03",
-            "PrgmOrdprcPtnCode": "00",
-            "StslAbleYn": "0",
-            "StslOrdprcTpCode": "0",
-            "CommdaCode": "41",
             "MgntrnCode": "000",
             "LoanDt": "",
-            "MbrNo": "000",
-            "OrdCndiTpCode": "0",
-            "StrtgCode": " ",
-            "GrpId": " ",
-            "OrdSeqNo": 0,
-            "PtflNo": 0,
-            "BskNo": 0,
-            "TrchNo": 0,
-            "ItemNo": 0,
-            "OpDrtnNo": "0",
-            "LpYn": "0",
-            "CvrgTpCode": "0"
+            "OrdCndiTpCode": "0"
         }
     }
     request = requests.post(URL, headers=header, data=json.dumps(body))
@@ -109,9 +97,38 @@ def order(RecCnt=1):
     print(request.json()["rsp_msg"])
 
 
+def price():
+    if (ACCESS_TOKEN == None):
+        print("로그인 실패")
+        exit()
+    PATH = "stock/market-data"
+    URL = f"{BASE_URL}/{PATH}"
+    header = {
+        "content-type": "application/json; charset=utf-8",
+        "authorization": f"Bearer {ACCESS_TOKEN}",
+        "tr_cd": "t1102",
+        "tr_cont": "N",
+        "tr_cont_key": "",
+    }
+    body = {
+        "t1102InBlock": {
+            "shcode": "459580"
+        }
+    }
+    request = requests.post(URL, headers=header, data=json.dumps(body))
+    print(request.json())
+
+    print(request.json()["rsp_msg"])
+
 
 if __name__ == "__main__":
     init_util("장준혁-모의투자")
-    get_account()
-    order()
-    get_account()
+
+    start = get_account()
+    price()
+    for i in range(20):
+        order()
+        time.sleep(0.5)
+        order(is_buy=False)
+    end = get_account()
+    print(f'차액: {format(end - start, ",")}')
