@@ -63,10 +63,10 @@ def get_account():
     print("---잔고---")
     print(request.json())
     print(f"""계좌 잔고: {format(request.json()["t0424OutBlock"]["sunamt"], ',')}""")
-    return request.json()["t0424OutBlock"]["sunamt"]
+    return request.json()["t0424OutBlock"]["dtsunik"]
 
 
-def order(is_buy=True):
+def order(is_buy=True, is_debug=False):
     if (ACCESS_TOKEN == None):
         print("로그인 실패")
         exit()
@@ -92,9 +92,9 @@ def order(is_buy=True):
         }
     }
     request = requests.post(URL, headers=header, data=json.dumps(body))
-    print(request.json())
-
-    print(request.json()["rsp_msg"])
+    if is_debug:
+        print(request.json())
+        print(request.json()["rsp_msg"])
 
 
 def price():
