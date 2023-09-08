@@ -28,11 +28,11 @@ def init_util(username="장준혁-모의투자"):
     PATH = "oauth2/token"
     URL = f"{BASE_URL}/{PATH}"
     request = requests.post(URL, verify=False, headers=header, params=param)
+    # print(request.json())
     ACCESS_TOKEN = request.json()["access_token"]
     if (ACCESS_TOKEN == None):
         print("로그인 실패")
         exit()
-    print(request.json())
     print("로그인 완료")
 
 
