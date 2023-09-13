@@ -1,6 +1,4 @@
 import os, sys, pickle
-import argparse, sys
-
 
 def main(argv):
     print('\n')
