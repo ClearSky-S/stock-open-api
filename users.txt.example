@@ -1,9 +1,9 @@
 {
-    "장준혁": {
+    "Jang": {
     "APP_KEY" : "APP_KEY입력하세요",
     "APP_SECRET" : "APP_SECRET입력하세요"
     },
-    "홍길동": {
+    "Hong": {
     "APP_KEY" : "APP_KEY입력하세요",
     "APP_SECRET" : "APP_SECRET입력하세요"
     }
