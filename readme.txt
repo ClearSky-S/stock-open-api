@@ -14,3 +14,7 @@
 3. 계좌에 150만원 넣기  
 4. users.txt에 user.txt.example을 참고해서 계정 정보를 입력하기  
 5. "python main.py 사용자이름"로 실행하기. (사용자이름은 users.txt에 설정한 것으로 입력.)  
+
+## 코드 설명
+main.py 함수에 메인 로직이 있고 ebest_util.py에 구현된 함수들을 사용함.
+ebest_util.py에는 로그인, 시세 확인, 주문, 잔고 확인 등의 함수가 구현되어 있음. ( ebest_util.py에서 __main__ 파트는 테스트용으로 쓴 코드임 )
