@@ -37,15 +37,4 @@ if __name__ == '__main__':
     print("-------------------종료-------------------")
 
 # 실행
-# python main.py 장준혁-모의투자
-
-"""
-python main.py 장준혁
-python main.py 장재혁
-python main.py 장진영
-python main.py 박윤조
-python main.py 심중섭
-python main.py 오정임
-python main.py 이석현
-
-"""
+# python main.py 사용자이름
