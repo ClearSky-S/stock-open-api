@@ -1,5 +1,4 @@
-# 이베스트 OPENAPI 거래량 이벤트 참여 매크로
-https://openapi.ebestsec.co.kr/intro
+# 이베스트 OPENAPI 출시 기념 거래량 이벤트 참여 매크로
 
 ## 원리
 매일 10억을 거래하면 매일 2만원을 줌.
